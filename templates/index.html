@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Home</h1>
+
+<div id="age_bmi" class="plotly_box"></div>
+<div id="bmi" class="plotly_box"></div>
+<script>
+  let data = {{ data | safe }}
+
+  let bmi = {
+    x: data['bmi'],
+    type: 'histogram',
+  };
+
+  var age_bmi = {
+    x: data['age'],
+    y: data['bmi'],
+    mode: 'markers',
+    type: 'scatter'
+  };
+
+  let age_bmi_layout = {
+    title: {
+      text: 'Age x BMI'
+    },
+    xaxis: {
+      title: {
+        text: 'Age'
+      }
+    },
+    yaxis: {
+      title: {
+        text: 'BMI'
+      }
+    }
+  }
+
+  let bmi_layout = {
+    title: {
+      text: 'BMI'
+    },
+    xaxis: {
+      title: {
+        text: 'BMI'
+      }
+    },
+    yaxis: {
+      title: {
+        text: 'Frequency'
+      }
+    }
+  }
+
+Plotly.newPlot('age_bmi', [age_bmi], age_bmi_layout);
+Plotly.newPlot('bmi', [bmi], bmi_layout);
+</script>
+{% endblock %}
